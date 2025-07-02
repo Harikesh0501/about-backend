@@ -25,13 +25,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// MySQL database connection using Pool for stability
+// MySQL database connection using Public Host
 const db = mysql.createPool({
-    host: 'mysql.railway.internal',
+    host: 'yamabiko.proxy.rlwy.net',
     user: 'root',
     password: 'HmXddBlydjfullOFHKqchdAPUmdTaUEG',
     database: 'railway',
-    port: 3306,
+    port: 51788,
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
