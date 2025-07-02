@@ -25,22 +25,16 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// MySQL database connection (using Railway credentials)
-const db = mysql.createConnection({
+// MySQL database connection using Pool for stability
+const db = mysql.createPool({
     host: 'mysql.railway.internal',
     user: 'root',
     password: 'HmXddBlydjfullOFHKqchdAPUmdTaUEG',
     database: 'railway',
-    port: 3306
-});
-
-// Connect to database
-db.connect((err) => {
-    if (err) {
-        console.error('❌ Error connecting to MySQL:', err);
-        return;
-    }
-    console.log('✅ Connected to MySQL');
+    port: 3306,
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0
 });
 
 // API route: POST /contact
