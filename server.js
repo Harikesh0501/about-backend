@@ -9,8 +9,11 @@ const path = require('path');
 const app = express();
 const port = process.env.PORT || 3001;
 
-// Middleware
-app.use(cors());
+// Middleware with CORS for your GitHub Pages domain
+app.use(cors({
+    origin: 'https://harikesh0501.github.io',
+    methods: ['POST']
+}));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
