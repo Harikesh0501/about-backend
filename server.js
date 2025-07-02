@@ -55,7 +55,7 @@ app.post('/contact', (req, res) => {
     });
 });
 
-// Health Check route to debug Render connection
+// Health Check route
 app.get('/health', (req, res) => {
     res.send('Server is healthy and running');
 });
