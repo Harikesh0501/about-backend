@@ -3,11 +3,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const cors = require('cors');
-const path = require('path'); // <-- Add this line
+const path = require('path');
 
 // Create Express app
 const app = express();
-const port = 3001;
+const port = process.env.PORT || 3001;
 
 // Middleware
 app.use(cors());
@@ -22,18 +22,19 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// MySQL database connection
+// MySQL database connection (using Railway credentials)
 const db = mysql.createConnection({
-    host: 'localhost',
+    host: 'mysql.railway.internal',
     user: 'root',
-    password: 'Hetu@512007', // ⚠️ Never hardcode passwords in production
-    database: 'aboutdb'
+    password: 'HmXddBlydjfullOFHKqchdAPUmdTaUEG',
+    database: 'railway',
+    port: 3306
 });
 
 // Connect to database
 db.connect((err) => {
     if (err) {
-        console.error('Error connecting to MySQL:', err);
+        console.error('❌ Error connecting to MySQL:', err);
         return;
     }
     console.log('✅ Connected to MySQL');
