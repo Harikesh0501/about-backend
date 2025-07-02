@@ -55,6 +55,11 @@ app.post('/contact', (req, res) => {
     });
 });
 
+// Health Check route to debug Render connection
+app.get('/health', (req, res) => {
+    res.send('Server is healthy and running');
+});
+
 // Start the server
 app.listen(port, () => {
     console.log(`🚀 Server running at http://localhost:${port}`);
