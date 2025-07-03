@@ -11,13 +11,13 @@ const port = process.env.PORT || 3001;
 
 // Middleware with CORS for your GitHub Pages domain
 app.use(cors({
-    origin: 'https://harikesh0501.github.io',
+    origin: 'https://harikesh0501.github.io', // allow your GitHub Pages frontend
     methods: ['POST']
 }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-// Serve static files (HTML, CSS, JS, images, etc.)
+// Serve static files
 app.use(express.static(__dirname));
 
 // Serve index.html at root
@@ -25,13 +25,13 @@ app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// MySQL database connection using Public Host
+// ✅ MySQL connection using Railway credentials (external/public access)
 const db = mysql.createPool({
-    host: 'yamabiko.proxy.rlwy.net',
+    host: 'turntable.proxy.rlwy.net',
     user: 'root',
-    password: 'HmXddBlydjfullOFHKqchdAPUmdTaUEG',
+    password: 'LswueuXLhqFqzfOquVIXepabDtchL0bk',
     database: 'railway',
-    port: 51788,
+    port: 19548, // important: Railway public port
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0
