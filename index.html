@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Student Portfolio</title>
   <link rel="stylesheet" href="style.css">
-  <script src="my.js" defer></script>
 </head>
 <body>
   <h1>Welcome To My Portfolio</h1>
@@ -114,14 +113,54 @@
   <!-- Page 10: Contact Me -->
   <div class="section contact" id="contact">
     <h2>Contact Me</h2>
-    <form id="contactForm" action="#" method="post">
+    <form id="contactForm">
       <input type="text" name="name" placeholder="Your Name" required><br><br>
       <input type="email" name="email" placeholder="Your Email" required><br><br>
       <textarea name="message" placeholder="Your Message" required></textarea><br><br>
       <button type="submit">Send Message</button>
     </form>
+    <p id="responseMsg" style="color: green;"></p>
+
     <p>Email: harikeshpatel0105@gmail.com</p>
     <p>Phone: +91 7874772670</p>
     <p>LinkedIn: <a href="https://www.linkedin.com/in/harikesh-patel-022a0235b/">linkedin.com/in/harikesh</a></p>
   </div>
+
+  <script>
+    document.getElementById("contactForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const name = e.target.name.value.trim();
+      const email = e.target.email.value.trim();
+      const message = e.target.message.value.trim();
+
+      if (!name || !email || !message) {
+        alert("Please fill all the fields.");
+        return;
+      }
+
+      // Replace this with your backend URL deployed on Render or Railway
+      const BACKEND_URL = "https://contact-api.onrender.com/contact";
+
+      fetch(BACKEND_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ name, email, message })
+      })
+      .then(res => res.text())
+      .then(data => {
+        document.getElementById("responseMsg").style.color = "green";
+        document.getElementById("responseMsg").textContent = data;
+        e.target.reset();
+      })
+      .catch(err => {
+        console.error(err);
+        document.getElementById("responseMsg").style.color = "red";
+        document.getElementById("responseMsg").textContent = "❌ Error: Could not send message.";
+      });
+    });
+  </script>
 </body>
+</html>
