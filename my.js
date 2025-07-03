@@ -37,27 +37,32 @@ if (hamburger && nav) {
   });
 }
 
-// Contact form AJAX submit to backend (UPDATED URL)
+// Contact form AJAX submit to backend
 const contactForm = document.querySelector('.contact form');
 if (contactForm) {
   contactForm.addEventListener('submit', async function(e) {
     e.preventDefault();
+
     const formData = new FormData(contactForm);
     const data = Object.fromEntries(formData.entries());
+
     try {
-      const res = await fetch('https://your-backend-api.onrender.com/contact', {
+      // ✅ Use Railway public backend URL (replace with yours if hosted)
+      const res = await fetch('https://about-backend-io1n.onrender.com/contact', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data)
       });
+
       if (res.ok) {
-        alert('Thank you for contacting me! I will get back to you soon.');
+        alert('✅ Thank you for contacting me! I will get back to you soon.');
         contactForm.reset();
       } else {
-        alert('There was an error. Please try again.');
+        const errorText = await res.text();
+        alert(`❌ Server error: ${errorText}`);
       }
     } catch (err) {
-      alert('Could not connect to the server. Please try again later.');
+      alert('❌ Could not connect to the server. Please try again later.');
     }
   });
 }
